@@ -1,4 +1,4 @@
-# LesPaiillettes
+# Les Pai(il)lettes
 
 ## Description du projet et Objectifs
 
