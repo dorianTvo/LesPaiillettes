@@ -4,10 +4,10 @@
 WiFiUDP udp;
 
 char packetBuffer[255];
-unsigned int localPort = 8080;
+unsigned int localPort = 1053;
 
 const char *ssid = "LATITUDE";
-const char *password = "vzam011101";
+const char *password = "12341234";
 
 void setup() {
   Serial.begin(115200);

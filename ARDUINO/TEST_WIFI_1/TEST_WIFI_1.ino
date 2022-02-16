@@ -4,7 +4,7 @@
  
 // Replace with your network credentials
 const char* ssid = "LATITUDE";
-const char* password = "vzam011101";
+const char* password = "12341234";
  
 ESP8266WebServer server(80);   //instantiate server at port 80 (http port)
  
