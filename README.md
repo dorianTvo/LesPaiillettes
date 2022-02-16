@@ -7,7 +7,7 @@
 + Concevoir, tester et fabriquer 64 modules
 
 ### Sources
-<https://www.avbrand.com/projects/dancefloor>
+<https://www.avbrand.com/projects/dancefloor> <\br>
 <https://s.42l.fr/presentation-pa-il-lettes>
 
 ## Répartition des parties au niveau des étudiants GE
