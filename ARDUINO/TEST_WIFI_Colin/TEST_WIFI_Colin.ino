@@ -20,8 +20,8 @@ Adafruit_NeoPixel pixels2(10, DataIn2, NEO_GRB + NEO_KHZ800);
 
 
 // Replace with your network credentials
-const char* ssid = "Colin";
-const char* password = "Lapin156";
+const char* ssid = "XXXXX";
+const char* password = "XXXX";
 
 ESP8266WebServer server(80);   //instantiate server at port 80 (http port)
 
