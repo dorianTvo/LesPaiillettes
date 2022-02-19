@@ -30,11 +30,11 @@ void setup() {
   udp.write("Hello from client");
   udp.endPacket();
 
-  for (int i = 0; i < 10 ; i++)
-  {
-    int packetSize = udp.parsePacket();
+  delay(500);
+  
+  int packetSize = udp.parsePacket();
 
-    if (packetSize) {
+  if (packetSize) {
       int len = udp.read(packetBuffer, 255);
       
       if (len > 0) 
@@ -45,11 +45,7 @@ void setup() {
       udp.beginPacket("10.42.0.1", 1053);
       udp.write("Hello from client");
       udp.endPacket();
-    } else {
-      if(i != 0)
-        i--;
-    }
-  }
+  } 
 }
 
 int y = 0;
