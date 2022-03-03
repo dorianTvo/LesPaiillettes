@@ -1,4 +1,4 @@
-package main2
+package main
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"net"
 )
 
-func main() {
+func main2() {
 
 	pc, err := net.ListenPacket("udp", ":1053")
 	if err != nil {

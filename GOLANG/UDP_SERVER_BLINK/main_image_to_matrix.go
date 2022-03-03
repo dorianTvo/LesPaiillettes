@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func main() {
+func main2() {
 	/*filename := "VIDEO.mp4"
 	width := 256
 	height := 256
