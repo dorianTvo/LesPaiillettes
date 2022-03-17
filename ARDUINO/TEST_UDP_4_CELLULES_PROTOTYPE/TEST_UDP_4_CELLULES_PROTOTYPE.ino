@@ -3,11 +3,12 @@
 #include <ArduinoJson.h>
 #include <Adafruit_NeoPixel.h>
 
-int DataIn = 0;
-Adafruit_NeoPixel pixels(9, DataIn, NEO_GRB + NEO_KHZ800);
 
-//const int capacity = JSON_OBJECT_SIZE(4);
-//DynamicJsonBuffer jb(capacity);
+int i;
+Adafruit_NeoPixel pixels1(36, 2, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels2(36, 5, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels3(36, 4, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels4(36, 0, NEO_GRB + NEO_KHZ800);
 
 WiFiUDP udp;
 
@@ -22,7 +23,10 @@ void setup() {
   Serial.begin(115200);
   WiFi.begin(ssid, password);
 
-  pixels.begin();
+  pixels1.begin();
+  pixels2.begin();
+  pixels3.begin();
+  pixels4.begin();
 
   // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
@@ -39,17 +43,32 @@ void setup() {
   
   udp.begin(localPort);
 
-  pixels.setPixelColor(8, pixels.Color(255,0,0));
-  pixels.show();
-  delay(100);
-  pixels.setPixelColor(8, pixels.Color(0,255,0));
-  pixels.show();
+  double couleur, bleu, rouge, vert;
+
+  bleu = 0;
+  rouge = 0;
+  vert = 10;
+
+  couleur = rouge * 256 * 256 + vert * 256 + bleu;
+
+  pixels1.fill(couleur, 0, 36);
+  pixels1.show();
+  pixels2.fill(couleur, 0, 36);
+  pixels2.show();
+  pixels3.fill(couleur, 0, 36);
+  pixels3.show();
+  pixels4.fill(couleur, 0, 36);
+  pixels4.show();
+  
 
   
 }
   
 void loop() 
 {
+   
+ 
+  
   int packetSize = udp.parsePacket();
 
   if (packetSize) 
@@ -75,14 +94,38 @@ void loop()
 
 void lightLed(int number, JsonObject obj) 
 {
-  pixels.setPixelColor(number, pixels.Color((int) obj["RgbColor"][0], (int) obj["RgbColor"][1], (int) obj["RgbColor"][2]));
-  pixels.show();
+
+double couleur, bleu, rouge, vert;
+
+  bleu = (int) obj["RgbColor"][2];
+  rouge = (int) obj["RgbColor"][0];
+  vert = (int) obj["RgbColor"][1];
+
+  couleur = rouge * 256 * 256 + vert * 256 + bleu;
+
+  if(number == 0)
+  {
+    pixels1.fill(couleur, 0, 36);
+    pixels1.show();
+  }
+  if(number == 1)
+  {
+    pixels2.fill(couleur, 0, 36);
+    pixels2.show();
+  }
+  if(number == 2)
+  {
+    pixels3.fill(couleur, 0, 36);
+    pixels3.show();
+  }
+  if(number == 3)
+  {
+    pixels4.fill(couleur, 0, 36);
+    pixels4.show();
+  }
 
 
-  //Serial.println("affiche");
-  //Serial.println(number);
-  //Serial.println((int) obj["RgbColor"][0]);
-  //Serial.println((int) obj["RgbColor"][1]);
-  //Serial.println((int) obj["RgbColor"][2]);
+  delay(10);
+
   
 }

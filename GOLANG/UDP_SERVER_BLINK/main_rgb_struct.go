@@ -25,7 +25,7 @@ func main() {
 	var dalle2 Dalle
 	var dalle3 Dalle
 	var dalle4 Dalle
-	var dalles [4]Dalle
+	var dalles [64]Dalle
 
 	pc, err := net.ListenPacket("udp", ":1053")
 	if err != nil {
@@ -37,37 +37,219 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+    
+    
+/*
+	for i = 0 ; i < 64 ; i++ {
+			dalles[i].Cellules[0].RgbColor = [3]int{255, 0, 0}
+			dalles[i].Cellules[1].RgbColor = [3]int{255, 0, 0}
+			dalles[i].Cellules[2].RgbColor = [3]int{255, 0, 0}
+			dalles[i].Cellules[3].RgbColor = [3]int{255, 0, 0}
+		}
+*/
 
 	dalle1.Cellules[0].RgbColor = [3]int{0, 0, 200}
-	dalle1.Cellules[1].RgbColor = [3]int{0, 200, 200}
-	dalle1.Cellules[2].RgbColor = [3]int{0, 200, 200}
-	dalle1.Cellules[3].RgbColor = [3]int{0, 0, 200}
+	dalle1.Cellules[1].RgbColor = [3]int{0, 200, 0}
+	dalle1.Cellules[2].RgbColor = [3]int{200, 0, 0}
+	dalle1.Cellules[3].RgbColor = [3]int{200, 200, 200}
 
-	dalle2.Cellules[0].RgbColor = [3]int{200, 0, 200}
-	dalle2.Cellules[1].RgbColor = [3]int{200, 200, 200}
-	dalle2.Cellules[2].RgbColor = [3]int{200, 200, 200}
-	dalle2.Cellules[3].RgbColor = [3]int{200, 0, 200}
 
-	dalle3.Cellules[0].RgbColor = [3]int{0, 200, 0}
-	dalle3.Cellules[1].RgbColor = [3]int{200, 200, 0}
-	dalle3.Cellules[2].RgbColor = [3]int{200, 200, 0}
+	dalle2.Cellules[0].RgbColor = [3]int{200, 200, 200}
+	dalle2.Cellules[1].RgbColor = [3]int{0, 0, 200}
+	dalle2.Cellules[2].RgbColor = [3]int{0, 200, 0}
+	dalle2.Cellules[3].RgbColor = [3]int{200, 0, 0}
+
+	dalle3.Cellules[0].RgbColor = [3]int{200, 0, 0}
+	dalle3.Cellules[1].RgbColor = [3]int{200, 200, 200}
+	dalle3.Cellules[2].RgbColor = [3]int{0, 0, 200}
 	dalle3.Cellules[3].RgbColor = [3]int{0, 200, 0}
 
-	dalle4.Cellules[0].RgbColor = [3]int{200, 0, 0}
-	dalle4.Cellules[1].RgbColor = [3]int{200, 0, 200}
-	dalle4.Cellules[2].RgbColor = [3]int{200, 0, 200}
-	dalle4.Cellules[3].RgbColor = [3]int{200, 0, 0}
+	dalle4.Cellules[0].RgbColor = [3]int{0, 200, 0}
+	dalle4.Cellules[1].RgbColor = [3]int{200, 0, 0}
+	dalle4.Cellules[2].RgbColor = [3]int{200, 200, 200}
+	dalle4.Cellules[3].RgbColor = [3]int{0, 0, 200}
 
+	
+	var i int
+	
 	for {
 
+		
+
+		/*
+		dalle1.Cellules[0].RgbColor = [3]int{200, 0, 0}
+		dalle1.Cellules[1].RgbColor = [3]int{0, 200, 0}
+		dalle1.Cellules[2].RgbColor = [3]int{0, 0, 200}
+		dalle1.Cellules[3].RgbColor = [3]int{100,100,100}
+*/
+/*
 		dalles[0] = dalle1
-		dalles[1] = dalle2
-		dalles[2] = dalle3
-		dalles[3] = dalle4
+		//dalles[1] = dalle2
+		//dalles[2] = dalle3
+		//dalles[3] = dalle4
 		data, _ := json.Marshal(dalles)
 		go serve(pc, addr, data)
 
+
 		time.Sleep(350 * time.Millisecond)
+
+
+
+		//time.Sleep(10000 * time.Millisecond)
+
+		*/
+
+		for i=0;i<100;i=i+1 {
+
+			dalle1.Cellules[0].RgbColor = [3]int{i, 0, 0}
+			dalle1.Cellules[1].RgbColor = [3]int{0, i, 0}
+			dalle1.Cellules[2].RgbColor = [3]int{0, 0, i}
+			dalle1.Cellules[3].RgbColor = [3]int{i, i, i}
+
+			dalles[0] = dalle1
+			//dalles[1] = dalle2
+			//dalles[2] = dalle3
+			//dalles[3] = dalle4
+			data, _ := json.Marshal(dalles)
+			go serve(pc, addr, data)
+
+
+			time.Sleep(50 * time.Millisecond)
+
+
+		}
+
+		for i=100;i>0;i=i-1 {
+
+			dalle1.Cellules[0].RgbColor = [3]int{i, 0, 0}
+			dalle1.Cellules[1].RgbColor = [3]int{0, i, 0}
+			dalle1.Cellules[2].RgbColor = [3]int{0, 0, i}
+			dalle1.Cellules[3].RgbColor = [3]int{i, i, i}
+
+			dalles[0] = dalle1
+			//dalles[1] = dalle2
+			//dalles[2] = dalle3
+			//dalles[3] = dalle4
+			data, _ := json.Marshal(dalles)
+			go serve(pc, addr, data)
+
+			time.Sleep(50 * time.Millisecond)
+		}
+		
+
+
+		for i=0;i<100;i=i+1 {
+
+			dalle1.Cellules[1].RgbColor = [3]int{i, 0, 0}
+			dalle1.Cellules[2].RgbColor = [3]int{0, i, 0}
+			dalle1.Cellules[3].RgbColor = [3]int{0, 0, i}
+			dalle1.Cellules[0].RgbColor = [3]int{i, i, i}
+
+			dalles[0] = dalle1
+			//dalles[1] = dalle2
+			//dalles[2] = dalle3
+			//dalles[3] = dalle4
+			data, _ := json.Marshal(dalles)
+			go serve(pc, addr, data)
+
+
+			time.Sleep(50 * time.Millisecond)
+
+			
+		}
+
+		for i=100;i>0;i=i-1 {
+
+			dalle1.Cellules[1].RgbColor = [3]int{i, 0, 0}
+			dalle1.Cellules[2].RgbColor = [3]int{0, i, 0}
+			dalle1.Cellules[3].RgbColor = [3]int{0, 0, i}
+			dalle1.Cellules[0].RgbColor = [3]int{i, i, i}
+
+			dalles[0] = dalle1
+			//dalles[1] = dalle2
+			//dalles[2] = dalle3
+			//dalles[3] = dalle4
+			data, _ := json.Marshal(dalles)
+			go serve(pc, addr, data)
+
+			time.Sleep(50 * time.Millisecond)
+		}
+
+		for i=0;i<100;i=i+1 {
+
+			dalle1.Cellules[2].RgbColor = [3]int{i, 0, 0}
+			dalle1.Cellules[3].RgbColor = [3]int{0, i, 0}
+			dalle1.Cellules[0].RgbColor = [3]int{0, 0, i}
+			dalle1.Cellules[1].RgbColor = [3]int{i, i, i}
+
+			dalles[0] = dalle1
+			//dalles[1] = dalle2
+			//dalles[2] = dalle3
+			//dalles[3] = dalle4
+			data, _ := json.Marshal(dalles)
+			go serve(pc, addr, data)
+
+
+			time.Sleep(50 * time.Millisecond)
+
+			
+		}
+
+		for i=100;i>0;i=i-1 {
+
+			dalle1.Cellules[2].RgbColor = [3]int{i, 0, 0}
+			dalle1.Cellules[3].RgbColor = [3]int{0, i, 0}
+			dalle1.Cellules[0].RgbColor = [3]int{0, 0, i}
+			dalle1.Cellules[1].RgbColor = [3]int{i, i, i}
+
+			dalles[0] = dalle1
+			//dalles[1] = dalle2
+			//dalles[2] = dalle3
+			//dalles[3] = dalle4
+			data, _ := json.Marshal(dalles)
+			go serve(pc, addr, data)
+
+			time.Sleep(50 * time.Millisecond)
+		}
+
+		for i=0;i<100;i=i+1 {
+
+			dalle1.Cellules[3].RgbColor = [3]int{i, 0, 0}
+			dalle1.Cellules[0].RgbColor = [3]int{0, i, 0}
+			dalle1.Cellules[1].RgbColor = [3]int{0, 0, i}
+			dalle1.Cellules[2].RgbColor = [3]int{i, i, i}
+
+			dalles[0] = dalle1
+			//dalles[1] = dalle2
+			//dalles[2] = dalle3
+			//dalles[3] = dalle4
+			data, _ := json.Marshal(dalles)
+			go serve(pc, addr, data)
+
+
+			time.Sleep(50 * time.Millisecond)
+
+			
+		}
+
+		for i=100;i>0;i=i-1 {
+
+			dalle1.Cellules[3].RgbColor = [3]int{i, 0, 0}
+			dalle1.Cellules[0].RgbColor = [3]int{0, i, 0}
+			dalle1.Cellules[1].RgbColor = [3]int{0, 0, i}
+			dalle1.Cellules[2].RgbColor = [3]int{i, i, i}
+
+			dalles[0] = dalle1
+			//dalles[1] = dalle2
+			//dalles[2] = dalle3
+			//dalles[3] = dalle4
+			data, _ := json.Marshal(dalles)
+			go serve(pc, addr, data)
+
+			time.Sleep(50 * time.Millisecond)
+		}
+
+/*
 
 		dalles[0] = dalle2
 		dalles[1] = dalle3
@@ -95,12 +277,14 @@ func main() {
 		go serve(pc, addr, data)
 
 		time.Sleep(350 * time.Millisecond)
-
+*/
 	}
 }
 
 func serve(pc net.PacketConn, addr net.Addr, message []byte) {
 	pc.WriteTo(message, addr)
+
+
 }
 
 /*
