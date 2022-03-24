@@ -5,14 +5,22 @@
 
 //Wifi settings - be sure to replace these with the WiFi network that your computer is connected to
 
-const char* ssid = "***************";
-const char* password = "***************";
+const char *ssid = "TP-Link_BFDC";
+const char *password = "56640113";
 
 // LED Strip
-const int numLeds = 10; // Change if your setup has more or less LED's
+const int numLeds = 4; // Change if your setup has more or less LED's
 const int numberOfChannels = numLeds * 3; // Total number of DMX channels you want to receive (1 led = 3 channels)
-#define DATA_PIN 4 //The data pin that the WS2812 strips are connected to.
-CRGB leds[numLeds];
+
+#define DATA_PIN1 2 //The data pin that the WS2812 strips are connected to.
+#define DATA_PIN2 5 //The data pin that the WS2812 strips are connected to.
+#define DATA_PIN3 4 //The data pin that the WS2812 strips are connected to.
+#define DATA_PIN4 0 //The data pin that the WS2812 strips are connected to.  
+
+CRGB leds1[30];
+CRGB leds2[30];
+CRGB leds3[30];
+CRGB leds4[30];
 
 // Artnet settings
 ArtnetWifi artnet;
@@ -65,16 +73,42 @@ void onDmxFrame(uint16_t universe, uint16_t length, uint8_t sequence, uint8_t* d
     FastLED.setBrightness(data[0]);
   }
   // read universe and put into the right part of the display buffer
-  for (int i = 0; i < length / 3; i++)
+  
+   for (int i = 0; i < length / 3; i++)
   {
     int led = i + (universe - startUniverse) * (previousDataLength / 3);
     if (led < numLeds)
     {
-      leds[led] = CRGB(data[i * 3], data[i * 3 + 1], data[i * 3 + 2]);
+      for(int j = 0;j<30;j++)
+      {
+        switch (led)
+        {
+          case 0 :
+            leds1[j] = CRGB(data[i * 3], data[i * 3 + 1], data[i * 3 + 2]);
+            break;
+          case 1 :
+            leds2[j] = CRGB(data[i * 3], data[i * 3 + 1], data[i * 3 + 2]);
+            break;
+         case 2 :
+            leds3[j] = CRGB(data[i * 3], data[i * 3 + 1], data[i * 3 + 2]);
+            break;
+         case 3 :
+            leds4[j] = CRGB(data[i * 3], data[i * 3 + 1], data[i * 3 + 2]);
+            break;
+          
+        }
+        
+      }
+      
+   
     }
+
+    
   }
-  previousDataLength = length;     
-  FastLED.show();
+     
+  previousDataLength = length; 
+    FastLED.show(); 
+ 
 }
 
 void setup()
@@ -82,7 +116,11 @@ void setup()
   Serial.begin(115200);
   ConnectWifi();
   artnet.begin();
-  FastLED.addLeds<WS2812, DATA_PIN, GRB>(leds, numLeds);
+  
+  FastLED.addLeds<WS2812, DATA_PIN1, GRB>(leds1, 30);
+  FastLED.addLeds<WS2812, DATA_PIN2, GRB>(leds2, 30);
+  FastLED.addLeds<WS2812, DATA_PIN3, GRB>(leds3, 30);
+  FastLED.addLeds<WS2812, DATA_PIN4, GRB>(leds4, 30);
 
   // onDmxFrame will execute every time a packet is received by the ESP32
   artnet.setArtDmxCallback(onDmxFrame);

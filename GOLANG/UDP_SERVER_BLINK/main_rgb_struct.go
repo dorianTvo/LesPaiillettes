@@ -48,10 +48,10 @@ func main() {
 		}
 */
 
-	dalle1.Cellules[0].RgbColor = [3]int{0, 0, 200}
-	dalle1.Cellules[1].RgbColor = [3]int{0, 200, 0}
-	dalle1.Cellules[2].RgbColor = [3]int{200, 0, 0}
-	dalle1.Cellules[3].RgbColor = [3]int{200, 200, 200}
+	dalle1.Cellules[0].RgbColor = [3]int{0, 0, 255}
+	dalle1.Cellules[1].RgbColor = [3]int{0, 0, 255}
+	dalle1.Cellules[2].RgbColor = [3]int{0, 0, 255}
+	dalle1.Cellules[3].RgbColor = [3]int{0, 0, 255}
 
 
 	dalle2.Cellules[0].RgbColor = [3]int{200, 200, 200}
@@ -70,7 +70,7 @@ func main() {
 	dalle4.Cellules[3].RgbColor = [3]int{0, 0, 200}
 
 	
-	var i int
+	//var i int
 	
 	for {
 
@@ -82,7 +82,7 @@ func main() {
 		dalle1.Cellules[2].RgbColor = [3]int{0, 0, 200}
 		dalle1.Cellules[3].RgbColor = [3]int{100,100,100}
 */
-/*
+
 		dalles[0] = dalle1
 		//dalles[1] = dalle2
 		//dalles[2] = dalle3
@@ -97,7 +97,7 @@ func main() {
 
 		//time.Sleep(10000 * time.Millisecond)
 
-		*/
+		/*
 
 		for i=0;i<100;i=i+1 {
 
@@ -248,7 +248,7 @@ func main() {
 
 			time.Sleep(50 * time.Millisecond)
 		}
-
+*/
 /*
 
 		dalles[0] = dalle2
