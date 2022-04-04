@@ -1,4 +1,4 @@
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 #include <WiFiUdp.h>
 #include <ArtnetWifi.h>
 //#include <FastLED.h>
@@ -7,16 +7,16 @@
 //Wifi settings - be sure to replace these with the WiFi network that your computer is connected to
 
 const char *ssid = "TP-Link_BFDC";
-const char *password = "*********";
+const char *password = "***********";
 
 // LED Strip
 const int numLeds = 4; // Change if your setup has more or less LED's
 const int numberOfChannels = numLeds * 3; // Total number of DMX channels you want to receive (1 led = 3 channels)
 
-Adafruit_NeoPixel pixels1(30, 2, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel pixels2(30, 5, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel pixels3(30, 4, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel pixels4(30, 0, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels1(30, 18, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels2(30, 19, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels3(30, 21, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels4(30, 22, NEO_GRB + NEO_KHZ800);
 
 // Artnet settings
 ArtnetWifi artnet;
@@ -115,8 +115,8 @@ void onDmxFrame(uint16_t universe, uint16_t length, uint8_t sequence, uint8_t* d
 void setup()
 {
   Serial.begin(115200);
-  ConnectWifi();
-  artnet.begin();
+  //ConnectWifi();
+  //artnet.begin();
   pixels1.begin();
   pixels2.begin();
   pixels3.begin();
@@ -124,11 +124,23 @@ void setup()
 
 
   // onDmxFrame will execute every time a packet is received by the ESP32
-  artnet.setArtDmxCallback(onDmxFrame);
+  //artnet.setArtDmxCallback(onDmxFrame);
 }
 
 void loop()
 {
   // we call the read function inside the loop
-  artnet.read();
+  //artnet.read();
+
+  double couleur = 0 * 256 * 256 + 100 * 256 + 100;
+
+  
+  pixels1.fill(couleur, 0, 30);
+  pixels1.show();
+  pixels2.fill(couleur, 0, 30);
+  pixels2.show();
+  pixels3.fill(couleur, 0, 30);
+  pixels3.show();
+  pixels4.fill(couleur, 0, 30);
+  pixels4.show();
 }
