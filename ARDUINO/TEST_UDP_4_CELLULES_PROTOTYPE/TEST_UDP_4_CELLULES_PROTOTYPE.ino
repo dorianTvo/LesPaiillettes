@@ -16,8 +16,8 @@ char packetBuffer[1023];
 unsigned int localPort = 1053;
 const int ID = 0;
 
-const char *ssid = "TP-Link_BFDC";
-const char *password = "56640113";
+const char *ssid = "nom du routeur";
+const char *password = "mot de passe du routeur";
 
 void setup() {
   Serial.begin(115200);

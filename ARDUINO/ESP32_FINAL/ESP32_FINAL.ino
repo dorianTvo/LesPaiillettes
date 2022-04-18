@@ -5,22 +5,22 @@
 #include <Adafruit_NeoPixel.h>
 
 
-#define ID 0
+#define ID 1
 
 //Wifi settings - be sure to replace these with the WiFi network that your computer is connected to
 
-const char *ssid = "***************";
-const char *password = "**************";
+const char *ssid = "nom du routeur";
+const char *password = "mot de passe du routeur";
 
 // LED Strip
 const int numLeds = 4; // Change if your setup has more or less LED's
 const int numberOfChannels = numLeds * 3; // Total number of DMX channels you want to receive (1 led = 3 channels)
 
 
-Adafruit_NeoPixel pixels1(30, 18, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel pixels2(30, 19, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel pixels3(30, 21, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel pixels4(30, 22, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels1(30, 23, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels2(30, 22, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels3(30, 1, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels4(30, 3, NEO_GRB + NEO_KHZ800);
 
 
 // Artnet settings
@@ -57,9 +57,35 @@ boolean ConnectWifi(void)
     Serial.println(ssid);
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
+
+    double couleur = 0 * 256 * 256 + 100 * 256;
+
+    pixels1.fill(couleur, 0, 30);
+    pixels1.show();
+    pixels2.fill(couleur, 0, 30);
+    pixels2.show();
+    pixels3.fill(couleur, 0, 30);
+    pixels3.show();
+    pixels4.fill(couleur, 0, 30);
+    pixels4.show();
+          
+
+    
   } else {
     Serial.println("");
     Serial.println("Connection failed.");
+
+    double couleur = 0;
+
+    pixels1.fill(couleur, 0, 30);
+    pixels1.show();
+    pixels2.fill(couleur, 0, 30);
+    pixels2.show();
+    pixels3.fill(couleur, 0, 30);
+    pixels3.show();
+    pixels4.fill(couleur, 0, 30);
+    pixels4.show();
+    
   }
 
   return state;
@@ -120,12 +146,26 @@ void onDmxFrame(uint16_t universe, uint16_t length, uint8_t sequence, uint8_t* d
 void setup()
 {
   Serial.begin(115200);
-  ConnectWifi();
-  artnet.begin();
+  
   pixels1.begin();
   pixels2.begin();
   pixels3.begin();
   pixels4.begin();
+
+  double couleur = 100 * 256 * 256;
+
+    pixels1.fill(couleur, 0, 30);
+    pixels1.show();
+    pixels2.fill(couleur, 0, 30);
+    pixels2.show();
+    pixels3.fill(couleur, 0, 30);
+    pixels3.show();
+    pixels4.fill(couleur, 0, 30);
+    pixels4.show();
+
+    
+    ConnectWifi();
+  artnet.begin();
 
 
   // onDmxFrame will execute every time a packet is received by the ESP32

@@ -4,9 +4,8 @@
 #include <FastLED.h>
 
 //Wifi settings - be sure to replace these with the WiFi network that your computer is connected to
-
-const char *ssid = "TP-Link_BFDC";
-const char *password = "56640113";
+const char *ssid = "nom du routeur";
+const char *password = "mot de passe du routeur";
 
 // LED Strip
 const int numLeds = 4; // Change if your setup has more or less LED's
