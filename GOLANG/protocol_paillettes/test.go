@@ -85,6 +85,9 @@ func pross() {
 
 func pross2() {
 
+	dt := new(pa.DataController)
+	dt.InitConnection()
+
 	i := 0
 	j := 0
 
@@ -94,6 +97,15 @@ func pross2() {
 		i = rand.Intn(15)
 
 		led.Matrix[j][i] = uint32(rand.Intn(16777215))
+
+		frameOut1, frameOut2 := led.ConvertMatrixToFrame()
+
+		dt.IP = "127.0.0.1"
+		dt.Port = "1053"
+		dt.Broadcast = "192.168.0.255"
+
+		dt.WriteData(frameOut1.ConvertFrameOutputToBytes())
+		dt.WriteData(frameOut2.ConvertFrameOutputToBytes())
 
 		time.Sleep(300 * time.Millisecond)
 
