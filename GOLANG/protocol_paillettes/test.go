@@ -4,7 +4,6 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 
 	"image/color"
-	"math/rand"
 	"time"
 
 	pa "paillettes/protocol"
@@ -43,7 +42,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 				for y := i*15 + 20; y < i*15+35; y++ {
 
-					couleur := color.RGBA{uint8((led.Matrix[j][i] >> 16) & 0xFF), uint8((led.Matrix[j][i] >> 8) & 0xFF), uint8((led.Matrix[j][i]) & 0xFF), 0}
+					couleur := color.RGBA{led.Matrix[j][i].Color[0], led.Matrix[j][i].Color[1], led.Matrix[j][i].Color[2], 0}
 					screen.Set(x, y, couleur)
 				}
 			}
@@ -73,7 +72,7 @@ func pross() {
 
 		for i := 0; i < 16; i++ {
 			for j := 0; j < 16; j++ {
-				led.Matrix[j][i] = uint32(rand.Intn(16777215))
+				//led.Matrix[j][i] = uint32(rand.Intn(16777215))
 			}
 		}
 
@@ -96,7 +95,7 @@ func pross2() {
 
 		for i := 0; i < 16; i++ {
 			for j := 0; j < 16; j++ {
-				led.Matrix[j][i] = 0x00FF0000
+				led.Matrix[j][i].Color = [3]uint8{0xFF, 0x00, 0x00}
 			}
 		}
 
@@ -109,7 +108,7 @@ func pross2() {
 
 		for i := 0; i < 16; i++ {
 			for j := 0; j < 16; j++ {
-				led.Matrix[j][i] = 0x00000000
+				led.Matrix[j][i].Color = [3]uint8{0x00, 0x00, 0x00}
 			}
 		}
 

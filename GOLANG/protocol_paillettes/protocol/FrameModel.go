@@ -8,8 +8,8 @@ import (
 )
 
 type FrameModelOutput struct {
-	FrameNumber uint8    // Decomposition of the Frame to avoid the maximum limit of data length
-	Data        []uint32 // data to send
+	FrameNumber uint8   // Decomposition of the Frame to avoid the maximum limit of data length
+	Data        []uint8 // data to send
 }
 
 type FrameModelInput struct {
@@ -17,7 +17,7 @@ type FrameModelInput struct {
 	Data float32 // data received (mass)
 }
 
-func int32ToByte(f uint32) []byte {
+func int8ToByte(f uint8) []byte {
 	var buf bytes.Buffer
 	err := binary.Write(&buf, binary.BigEndian, f)
 	if err != nil {
@@ -33,7 +33,7 @@ func (f *FrameModelOutput) ConvertFrameOutputToBytes() []byte {
 
 	for i := 0; i < len(f.Data); i++ {
 
-		res := int32ToByte(f.Data[i])
+		res := int8ToByte(f.Data[i])
 		data = append(data, res...)
 	}
 
