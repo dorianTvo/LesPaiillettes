@@ -92,20 +92,27 @@ func pross2() {
 
 	dt.InitConnection()
 
-	i := 0
-	j := 0
-
 	for {
-		j = rand.Intn(15)
-		i = rand.Intn(15)
 
-		led.Matrix[j][i] = uint32(rand.Intn(16777215))
+		for i := 0; i < 16; i++ {
+			for j := 0; j < 16; j++ {
+				led.Matrix[j][i] = 0x00FF0000
+			}
+		}
 
 		frameOut1, frameOut2 := led.ConvertMatrixToFrame()
 
 		dt.WriteData(frameOut1.ConvertFrameOutputToBytes())
 		dt.WriteData(frameOut2.ConvertFrameOutputToBytes())
 
-		time.Sleep(300 * time.Millisecond)
+		time.Sleep(1000 * time.Millisecond)
+
+		for i := 0; i < 16; i++ {
+			for j := 0; j < 16; j++ {
+				led.Matrix[j][i] = 0x00000000
+			}
+		}
+
+		time.Sleep(1000 * time.Millisecond)
 	}
 }

@@ -11,8 +11,8 @@ func (l *LedMatrixModel) ConvertMatrixToFrame() (FrameModelOutput, FrameModelOut
 	var frame FrameModelOutput
 	var frame2 FrameModelOutput
 
-	frame.FrameNumber = 1
-	frame.FrameNumber = 2
+	frame.FrameNumber = 0x01
+	frame2.FrameNumber = 0x02
 
 	for column := 0; column < 4; column++ { // On fait la hauteur de dalle (4)
 		for lign := 0; lign < 8; lign++ { // On fait la longueur de dalle (8)
