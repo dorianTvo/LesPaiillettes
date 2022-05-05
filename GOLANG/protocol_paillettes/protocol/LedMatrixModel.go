@@ -49,7 +49,7 @@ func (l *LedMatrixModel) ConvertMatrixToFrame() (FrameModelOutput, FrameModelOut
 
 			frame2.Data = append(frame2.Data[:], l.Matrix[column*2][lign*2+1].Color[0])
 			frame2.Data = append(frame2.Data[:], l.Matrix[column*2][lign*2+1].Color[1])
-			frame2.Data = append(frame.Data[:], l.Matrix[column*2][lign*2+1].Color[2])
+			frame2.Data = append(frame2.Data[:], l.Matrix[column*2][lign*2+1].Color[2])
 
 			frame2.Data = append(frame2.Data[:], l.Matrix[column*2+1][lign*2].Color[0])
 			frame2.Data = append(frame2.Data[:], l.Matrix[column*2+1][lign*2].Color[1])
