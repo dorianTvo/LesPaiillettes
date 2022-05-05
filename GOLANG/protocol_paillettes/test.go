@@ -113,6 +113,11 @@ func pross2() {
 			}
 		}
 
+		frameOut1, frameOut2 = led.ConvertMatrixToFrame()
+
+		dt.WriteData(frameOut1.ConvertFrameOutputToBytes())
+		dt.WriteData(frameOut2.ConvertFrameOutputToBytes())
+
 		time.Sleep(1000 * time.Millisecond)
 	}
 }

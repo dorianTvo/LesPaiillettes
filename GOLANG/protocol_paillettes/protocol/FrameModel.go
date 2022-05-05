@@ -19,7 +19,7 @@ type FrameModelInput struct {
 
 func int32ToByte(f uint32) []byte {
 	var buf bytes.Buffer
-	err := binary.Write(&buf, binary.LittleEndian, f)
+	err := binary.Write(&buf, binary.BigEndian, f)
 	if err != nil {
 		fmt.Println("binary.Write failed:", err)
 	}
@@ -45,6 +45,6 @@ func (f *FrameModelOutput) ConvertFrameOutputToBytes() []byte {
 
 func (f *FrameModelInput) ConvertBytesToFrameInput(data []byte) {
 	f.ID = data[0]
-	bits := binary.LittleEndian.Uint32(data[1:])
+	bits := binary.BigEndian.Uint32(data[1:])
 	f.Data = math.Float32frombits(bits)
 }
