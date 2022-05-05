@@ -1,11 +1,11 @@
 package main
 
 import (
-	pa "paillettesprotocol"
+	pa "paillettes/protocol"
 	"time"
 )
 
-func main2() {
+func main() {
 
 	dt := new(pa.DataController)
 	ledMatrix := new(pa.LedMatrixModel)
