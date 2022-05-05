@@ -33,15 +33,15 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	//ebitenutil.DebugPrint(screen, "The dancefloor")
 
 	x_start := 20
-	x_stop := 50
+	x_stop := 35
 
-	for j := 0; j < 8; j++ {
+	for j := 0; j < 16; j++ {
 
-		for i := 0; i < 8; i++ {
+		for i := 0; i < 16; i++ {
 
 			for x := x_start; x < x_stop; x++ {
 
-				for y := i*30 + 20; y < i*30+50; y++ {
+				for y := i*15 + 20; y < i*15+35; y++ {
 
 					couleur := color.RGBA{uint8((led.Matrix[j][i] >> 16) & 0xFF), uint8((led.Matrix[j][i] >> 8) & 0xFF), uint8((led.Matrix[j][i]) & 0xFF), 0}
 					screen.Set(x, y, couleur)
@@ -49,14 +49,14 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			}
 		}
 
-		x_start += 30
-		x_stop += 30
+		x_start += 15
+		x_stop += 15
 	}
 }
 
 func main() {
 
-	go pross()
+	go pross2()
 
 	ebiten.SetWindowSize(screenWidth*2, screenHeight*2)
 	ebiten.SetWindowTitle("The dancefloor")
@@ -71,11 +71,29 @@ func pross() {
 
 	for {
 
-		for i := 0; i < 8; i++ {
-			for j := 0; j < 8; j++ {
+		for i := 0; i < 16; i++ {
+			for j := 0; j < 16; j++ {
 				led.Matrix[j][i] = uint32(rand.Intn(16777215))
 			}
 		}
+
+		time.Sleep(300 * time.Millisecond)
+
+	}
+
+}
+
+func pross2() {
+
+	i := 0
+	j := 0
+
+	for {
+
+		j = rand.Intn(15)
+		i = rand.Intn(15)
+
+		led.Matrix[j][i] = uint32(rand.Intn(16777215))
 
 		time.Sleep(300 * time.Millisecond)
 
