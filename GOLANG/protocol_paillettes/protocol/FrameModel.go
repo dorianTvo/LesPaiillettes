@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"math"
 )
 
 type FrameModelOutput struct {
@@ -13,8 +12,8 @@ type FrameModelOutput struct {
 }
 
 type FrameModelInput struct {
-	ID   uint8   // ID of cell
-	Data float32 // data received (mass)
+	ID   uint8 // ID of cell
+	Data uint8 // data received (mass)
 }
 
 func int8ToByte(f uint8) []byte {
@@ -45,6 +44,5 @@ func (f *FrameModelOutput) ConvertFrameOutputToBytes() []byte {
 
 func (f *FrameModelInput) ConvertBytesToFrameInput(data []byte) {
 	f.ID = data[0]
-	bits := binary.BigEndian.Uint32(data[1:])
-	f.Data = math.Float32frombits(bits)
+	f.Data = data[1]
 }

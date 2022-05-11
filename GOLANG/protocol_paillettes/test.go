@@ -93,9 +93,14 @@ func pross2() {
 
 	for {
 
+		data, _ := dt.ReadIncommingData() // Lectures des octects de la trame
+
+		frameIn := new(pa.FrameModelInput)     // Definition de la structure de données
+		frameIn.ConvertBytesToFrameInput(data) //Initialisation de la structure à partir des octets reçu
+
 		for i := 0; i < 16; i++ {
 			for j := 0; j < 16; j++ {
-				led.Matrix[j][i].Color = [3]uint8{0xFF, 0x00, 0x00}
+				led.Matrix[j][i].Color = [3]uint8{frameIn.Data, frameIn.Data, frameIn.Data}
 			}
 		}
 
@@ -104,19 +109,5 @@ func pross2() {
 		dt.WriteData(frameOut1.ConvertFrameOutputToBytes())
 		dt.WriteData(frameOut2.ConvertFrameOutputToBytes())
 
-		time.Sleep(1000 * time.Millisecond)
-
-		for i := 0; i < 16; i++ {
-			for j := 0; j < 16; j++ {
-				led.Matrix[j][i].Color = [3]uint8{0x00, 0x00, 0x00}
-			}
-		}
-
-		frameOut1, frameOut2 = led.ConvertMatrixToFrame()
-
-		dt.WriteData(frameOut1.ConvertFrameOutputToBytes())
-		dt.WriteData(frameOut2.ConvertFrameOutputToBytes())
-
-		time.Sleep(1000 * time.Millisecond)
 	}
 }

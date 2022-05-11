@@ -23,6 +23,11 @@ func main() {
 	dt.WriteData(frameOut1.ConvertFrameOutputToBytes())
 	dt.WriteData(frameOut2.ConvertFrameOutputToBytes())
 
+	data, _ := dt.ReadIncommingData() // Lectures des octects de la trame
+
+	frameIn := new(pa.FrameModelInput)     // Definition de la structure de données
+	frameIn.ConvertBytesToFrameInput(data) //Initialisation de la structure à partir des octets reçu
+
 	time.Sleep(1 * time.Second)
 
 	dt.StopConnection()
