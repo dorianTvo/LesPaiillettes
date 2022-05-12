@@ -98,16 +98,79 @@ func pross2() {
 		frameIn := new(pa.FrameModelInput)     // Definition de la structure de données
 		frameIn.ConvertBytesToFrameInput(data) //Initialisation de la structure à partir des octets reçu
 
-		for i := 0; i < 16; i++ {
-			for j := 0; j < 16; j++ {
-				led.Matrix[j][i].Color = [3]uint8{frameIn.Data, frameIn.Data, frameIn.Data}
+		go cross_color(frameIn.ID, dt)
+
+
+		time.Sleep(10 * time.Millisecond)
+	}
+}
+
+func cross_color(ID uint8, dt *pa.DataController) {
+
+	x := int8(ID)
+	y := int8(ID)
+	
+
+	for i := 0; i < 17; i++ {
+
+			if x+1*int8(i) < 16 {
+
+				led.Matrix[x+1*int8(i)][y].Color = [3]uint8{255, 0, 0}
+
 			}
+			if (x+1*int8(i)) <= 16 && (x+1*int8(i)) >= 1 {
+
+				led.Matrix[x+1*(int8(i)-1)][y].Color = [3]uint8{0, 0, 0}
+
+			}
+
+			if x-1*int8(i) >= 0 {
+
+				led.Matrix[x-1*int8(i)][y].Color = [3]uint8{255, 0, 0}
+				
+
+			}
+
+			if (x-int8(i)) <= 14 && (x-int8(i)) >= -1  {
+
+				//print("test")
+				led.Matrix[x-1*(int8(i)-1)][y].Color = [3]uint8{0, 0, 0}
+
+			}
+
+			if y+1*int8(i) < 16 {
+
+				led.Matrix[x][y+1*int8(i)].Color = [3]uint8{255, 0, 0}
+				
+
+			}
+
+			if (y+1*int8(i)) <= 16 && (y+1*int8(i)) >= 1 {
+
+				led.Matrix[x][y+1*(int8(i)-1)].Color = [3]uint8{0, 0, 0}
+
+			}
+
+			if y-1*int8(i) >= 0 {
+
+				led.Matrix[x][y-1*int8(i)].Color = [3]uint8{255, 0, 0}
+				
+
+			}		
+
+			if (y-1*int8(i)) <= 14 && (y-1*int8(i)) >= -1  {
+
+				led.Matrix[x][y-1*(int8(i)-1)].Color = [3]uint8{0, 0, 0}
+
+			}	
+
+			frameOut1, frameOut2 := led.ConvertMatrixToFrame()
+
+			dt.WriteData(frameOut1.ConvertFrameOutputToBytes())
+			dt.WriteData(frameOut2.ConvertFrameOutputToBytes())
+
+			time.Sleep(200 * time.Millisecond)
+
 		}
 
-		frameOut1, frameOut2 := led.ConvertMatrixToFrame()
-
-		dt.WriteData(frameOut1.ConvertFrameOutputToBytes())
-		dt.WriteData(frameOut2.ConvertFrameOutputToBytes())
-
-	}
 }
