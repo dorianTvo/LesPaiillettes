@@ -1,4 +1,4 @@
-# Les Pai(il)lettes
+# Les Pa(i)llettes
 
 ## Description du projet et Objectifs
 
@@ -10,7 +10,6 @@
 
 + Dorian / Colin sur la partie programmation de la communication ainsi que la commande des LEDs RGB
 + Camille / Lucas sur la conception et intégration des capteurs d'appui des dalles
-+ Sim Kah Hou sur la partie intégration globale du système et prototypage réel des différentes parties
 
 ## Sources
 
