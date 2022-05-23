@@ -56,6 +56,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 func main() {
 
 	go pross2()
+	
 
 	ebiten.SetWindowSize(screenWidth*2, screenHeight*2)
 	ebiten.SetWindowTitle("The dancefloor")
@@ -91,6 +92,19 @@ func pross2() {
 
 	dt.InitConnection()
 
+	for i := 0; i < 16; i++ {
+
+			for j := 0; j < 16; j++ {
+
+				led.Matrix[i][j].Hold = 0
+			
+
+			}
+			
+		}
+
+	go pross3()
+
 	for {
 
 		data, _ := dt.ReadIncommingData() // Lectures des octects de la trame
@@ -98,12 +112,52 @@ func pross2() {
 		frameIn := new(pa.FrameModelInput)     // Definition de la structure de données
 		frameIn.ConvertBytesToFrameInput(data) //Initialisation de la structure à partir des octets reçu
 
+		print(frameIn.ID)
 		go cross_color(frameIn.ID, dt)
 
 
 		time.Sleep(10 * time.Millisecond)
 	}
 }
+
+func pross3() {
+
+	//Couleur de fond
+
+	for {
+
+		for i := 0; i < 16; i++ {
+
+			for j := 0; j < 16; j++ {
+
+				if(led.Matrix[i][j].Hold == 0) {
+					led.Matrix[i][j].Color = [3]uint8{0, 0, 255}
+				}
+
+			}
+			
+		}
+
+		time.Sleep(200 * time.Millisecond)
+
+		for i := 0; i < 16; i++ {
+
+			for j := 0; j < 16; j++ {
+
+				if(led.Matrix[i][j].Hold == 0) {
+					led.Matrix[i][j].Color = [3]uint8{0, 255, 0}
+				}
+
+			}
+			
+		}
+
+		time.Sleep(200 * time.Millisecond)
+
+	}
+}
+
+
 
 func cross_color(ID uint8, dt *pa.DataController) {
 
@@ -116,17 +170,20 @@ func cross_color(ID uint8, dt *pa.DataController) {
 			if x+1*int8(i) < 16 {
 
 				led.Matrix[x+1*int8(i)][y].Color = [3]uint8{255, 0, 0}
+				led.Matrix[x+1*int8(i)][y].Hold = 1
 
 			}
 			if (x+1*int8(i)) <= 16 && (x+1*int8(i)) >= 1 {
 
 				led.Matrix[x+1*(int8(i)-1)][y].Color = [3]uint8{0, 0, 0}
+				led.Matrix[x+1*(int8(i)-1)][y].Hold = 0
 
 			}
 
 			if x-1*int8(i) >= 0 {
 
 				led.Matrix[x-1*int8(i)][y].Color = [3]uint8{255, 0, 0}
+				led.Matrix[x-1*int8(i)][y].Hold = 1
 				
 
 			}
@@ -135,12 +192,14 @@ func cross_color(ID uint8, dt *pa.DataController) {
 
 				//print("test")
 				led.Matrix[x-1*(int8(i)-1)][y].Color = [3]uint8{0, 0, 0}
+				led.Matrix[x-1*(int8(i)-1)][y].Hold = 0
 
 			}
 
 			if y+1*int8(i) < 16 {
 
 				led.Matrix[x][y+1*int8(i)].Color = [3]uint8{255, 0, 0}
+				led.Matrix[x][y+1*int8(i)].Hold = 1
 				
 
 			}
@@ -148,12 +207,14 @@ func cross_color(ID uint8, dt *pa.DataController) {
 			if (y+1*int8(i)) <= 16 && (y+1*int8(i)) >= 1 {
 
 				led.Matrix[x][y+1*(int8(i)-1)].Color = [3]uint8{0, 0, 0}
+				led.Matrix[x][y+1*(int8(i)-1)].Hold = 0
 
 			}
 
 			if y-1*int8(i) >= 0 {
 
 				led.Matrix[x][y-1*int8(i)].Color = [3]uint8{255, 0, 0}
+				led.Matrix[x][y-1*int8(i)].Hold = 1
 				
 
 			}		
@@ -161,6 +222,7 @@ func cross_color(ID uint8, dt *pa.DataController) {
 			if (y-1*int8(i)) <= 14 && (y-1*int8(i)) >= -1  {
 
 				led.Matrix[x][y-1*(int8(i)-1)].Color = [3]uint8{0, 0, 0}
+				led.Matrix[x][y-1*(int8(i)-1)].Hold = 0
 
 			}	
 
