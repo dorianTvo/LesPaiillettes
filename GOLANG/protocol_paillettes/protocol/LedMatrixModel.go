@@ -4,6 +4,7 @@ const size int = 16
 
 type ColorModel struct {
 	Color [3]uint8
+	Hold uint8
 }
 
 type LedMatrixModel struct {
