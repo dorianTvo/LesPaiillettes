@@ -7,8 +7,16 @@
 
 //Wifi settings - be sure to replace these with the WiFi network that your computer is connected to
 
-const char *ssid = "blablabla";
-const char *password = "blablabla";
+
+const char *ssid = "Colin";
+const char *password = "Lapin156";
+const char *ip_serv = "192.168.33.204";;
+
+
+//Variables 
+int btnVal  = 0; 
+int y = 0;
+int etatPrecedent = 0;
 
 // LED Strip
 const int numLeds = 4; // Change if your setup has more or less LED's
@@ -24,6 +32,10 @@ Adafruit_NeoPixel pixels4(30, 22, NEO_GRB + NEO_KHZ800);
 WiFiUDP udp;
 uint8_t packetBuffer[1023];
 unsigned int localPort = 1053;
+
+int octetRecu;
+
+
 
 // connect to wifi – returns true if successful or false if not
 boolean ConnectWifi(void)
@@ -183,6 +195,11 @@ void setup()
     ConnectWifi();
   udp.begin(localPort);
 
+
+
+
+  
+
 }
 
 void loop()
@@ -193,25 +210,25 @@ void loop()
   {
     int len = udp.read(packetBuffer, 1023);
 
-    Serial.println("id");
-    for (int i = 0; i < 20; i++)
-  {
-    Serial.println(packetBuffer[i]);
-  }
-/*
-    Serial.println("value1");
-    Serial.println(packetBuffer[4]);
-
-    Serial.println("value2");
-    Serial.println(packetBuffer[5]);
-
-    Serial.println("value3");
-    Serial.println(packetBuffer[6]);
-    */
-  
+   // Serial.println("recu");
     onDmxFrame(packetBuffer[0], 0, 0, packetBuffer);
 
   
   }
+
+ if (Serial.available() > 0) {
+        // Lecture de l'octet présent dans la mémoire tampon (buffer)
+        octetRecu = Serial.read();
+ if (octetRecu == 'R' || octetRecu == 'e') { //Si l'octet recu est égal à R ou r
+            
+          Serial.println("Envoi");
+           byte buffersend[3] = {0x06, 0xA0};
+           udp.beginPacket(ip_serv, localPort);
+           udp.write(buffersend,2);
+           udp.endPacket();
+
+ 
+        }
+ }
 
 }
