@@ -162,7 +162,7 @@ func pross2() {
 	dt := new(pa.DataController)
 	dt.IP = "127.0.0.1"
 	dt.Port = "1053"
-	dt.Broadcast = "192.168.0.255"
+	dt.Broadcast = "192.168.33.255"
 
 	dt.InitConnection()
 
@@ -178,7 +178,7 @@ func pross2() {
 		}
 
 	go pross3()
-	//go envoie_trame(dt)
+	go envoie_trame(dt)
 
 	for {
 
@@ -386,7 +386,6 @@ func cross_color(ID uint8, dt *pa.DataController) {
 			}
 			if (x+1*int8(i)) <= 16 && (x+1*int8(i)) >= 1 {
 
-				//led.Matrix[x+1*(int8(i)-1)][y].Color = [3]uint8{0, 0, 0}
 				led.Matrix[x+1*(int8(i)-1)][y].Hold = 0
 
 			}
