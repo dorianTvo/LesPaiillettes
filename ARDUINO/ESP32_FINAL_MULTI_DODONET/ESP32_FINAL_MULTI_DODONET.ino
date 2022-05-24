@@ -9,7 +9,7 @@
 
 
 const char *ssid = "Colin";
-const char *password = "Lapin156";
+const char *password = "********";
 const char *ip_serv = "192.168.33.204";;
 
 
